@@ -44,9 +44,9 @@ def func_choice(x): # this function handles most print() and input() functions f
 			row_end = input('\n  type in your end row: ')
 		return str(search_term), int(column_start), int(column_end), int(row_start), int(row_end)
 	elif x==12:
-		user_range = input('\n Choose the column range of your table (rows will be automatically calculated) (0 = 0 - 20 (default choice); any_key = custom ')
+		user_range = input('\n Choose the column range of your table (rows will be automatically calculated) (0 = 0 - 14 (default choice); any_key = custom ')
 		if user_range == '0':
-			column_start, column_end = 0 , 20
+			column_start, column_end = 0 , 14
 		else:
 			column_start = input('\n  type in your start column: ')
 			column_end = input('\n  type in your end column: ')
@@ -112,16 +112,51 @@ def func_draw_xls_table(actual_row_start, actual_row_end,  actual_col_start, act
 	print('\n Column range: ', (range(actual_col_start, ret_col_end)))
 	print('\n Row range: ', range(actual_row_start, actual_row_end))
 	try:
+		module_num = []
+		module_type = []
+		network_name = []
+		hs_rear = []
+		hs_front = []
 		for c in range(actual_col_start, ret_col_end):	
 			for r in range(actual_row_start, actual_row_end):
 				print('Working on row:', r,'column', c)
 				print(sheet.cell_value(r, c))
-		else:	
-			return True
+				if (c == actual_col_start):																		#module number column
+					if type(sheet.cell_value(r,c)) == float:
+						module_num.append(int(sheet.cell_value(r,c)))
+					else:
+						module_num.append((sheet.cell_value(r,c)))
+				if (c == (actual_col_start + 1)):																#module type column
+					if type(sheet.cell_value(r,c)) == float:
+						module_type.append(int(sheet.cell_value(r,c)))
+					else:
+						module_type.append((sheet.cell_value(r,c)))
+				if (c == (actual_col_start + 2)):																#network name column
+					network_name.append((sheet.cell_value(r,c)))
+				if (c == (actual_col_start + 3)):																#handshake rear column
+					if type(sheet.cell_value(r,c)) == float:
+						hs_rear.append(int(sheet.cell_value(r,c)))
+					else:
+						hs_rear.append((sheet.cell_value(r,c)))
+				if (c == (actual_col_start + 4)):																#handshake front column
+					if type(sheet.cell_value(r,c)) == float:
+						hs_front.append(int(sheet.cell_value(r,c)))
+					else:
+						hs_front.append((sheet.cell_value(r,c)))
+								
+		else:																									#else statement always executed upon completion of the FOR loop
+			if (len(module_num) == len(module_type) == len(network_name) == len(hs_rear) == len(hs_front)):
+				multi_list = [module_num, module_type, network_name,hs_rear,hs_front]
+				return multi_list
+			else:
+				print('Error in drawing excel table -- not all columns have the same amount of data')
+				sleep(5)
+				sys.exit()
+				
 	except IndexError:
 		print('EXCEPTION (IndexError)- column :', c, 'row: ',r,'  The program has likely detected a column which has no values, try adjusting your column range')
 		func_draw_xls_table(save1, save2, save3, save4, save5, save6)
-		return True
+		
 
 			
 	
@@ -187,7 +222,8 @@ def func_read(file_current, para_extension_read ):
 				err_val += 8
 			if err_val == 1 :
 				print('No errors in column or row configuration detected')
-				func_draw_xls_table(actual_row_start, actual_row_end,  actual_col_start, actual_col_end, workbook, sheet)
+				return func_draw_xls_table(actual_row_start, actual_row_end,  actual_col_start, actual_col_end, workbook, sheet)
+				
 			else:
 				print('err_val: ',err_val,' - program will exit soon')
 				sleep(10)
@@ -199,7 +235,7 @@ def func_read(file_current, para_extension_read ):
 			sleep(10)
 			sys.exit()
 			
-		return 															
+																
 			
 
 					
@@ -236,9 +272,9 @@ def func_check_filename(para_extension = '1' ):
 	
 
 
-def func_output_to_file(input_data, para_extension):
+def func_output_to_file(input_data, para_extension_write):
 	
-	new_name =func_check_filename(para_extension)             		#new_file is given a filename by func_check_filename() where arg ==1 means it will be a .txt file
+	new_name =func_check_filename(para_extension_write)             		#new_file is given a filename by func_check_filename() where arg ==1 means it will be a .txt file
 	print('\n now creating file' , new_name)
 	new_file = open(new_name,'w')
 	new_file.write(str(input_data))                     #argument of new_file.write(arg) requirement is that arg must be a string and not a list 
@@ -265,7 +301,7 @@ def main():
 	
 	print('Starting Step 4 - call func_output_to_file\n')
 	sleep(2)
-	func_output_to_file(list_output, para_extension_read)
+	func_output_to_file(list_output, para_extension_write)
 
 	return True
 
