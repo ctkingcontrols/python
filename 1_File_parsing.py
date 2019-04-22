@@ -6,11 +6,11 @@ import xlrd
 
 def func_choice(x): # this function handles most print() and input() functions for the sake of modularity
 	if x == 1:
-		return input('Enter the file you wish to select (without quotations) search and include the extension. Enter "0" if you wish to quit. Enter "1" if you wish to type a full filepath:  \n \n')
+		return input('Enter the file you wish to select (without quotations) search and include the extension. [ 0 = quit ; 1 = type a full filepath ]  \n \n')
 	elif x==2:
 		return input('\nEnter the entire file path, including the file extension:  ')
 	elif x==3:
-		return input('\nYou have chosen ' + f_choose + ' "1" to confirm, "0" to quit  ')
+		return input('\nYou have chosen ' + f_choose + ' [1 = confirm, 0 = Quit]  ')
 	elif x==4:
 		print ('\n \nError: You have selected a file which does not exist ')
 		return
@@ -25,11 +25,11 @@ def func_choice(x): # this function handles most print() and input() functions f
 		print('There is a problem with the extension you have chosen')
 		return
 	elif x==9:
-		return input('\nWhat is the extension of the file you wish to READ from? (0 = .xlsx ; 1 = .txt  ): ')	
+		return input('\nWhat is the extension of the file you wish to READ from? [ 0 = .xlsx ; 1 = .txt  ]: ')	
 	elif x==10:
-		return input('\nWhat is the extension of the file you wish to WRITE to? (0 = .xlsx ; 1 = .txt  ): ')
+		return input('\nWhat is the extension of the file you wish to WRITE to? [ 0 = .xlsx ; 1 = .txt  ]: ')
 	elif x==11:
-		user_term = input('\n You are reading from a .xls file, searching for ( 0 = Module Number ): ')
+		user_term = input('\n You are reading from a .xls file, searching for [ 0 = Module Number ]: ')
 		if user_term == '0':
 			search_term = 'Module Number'
 		else:
@@ -44,16 +44,61 @@ def func_choice(x): # this function handles most print() and input() functions f
 			row_end = input('\n  type in your end row: ')
 		return str(search_term), int(column_start), int(column_end), int(row_start), int(row_end)
 	elif x==12:
-		user_range = input('\n Choose the column range of your table (rows will be automatically calculated) (0 = 0 - 14 (default choice); any_key = custom ')
+		user_range = input('\n Choose the column range of your table (rows will be automatically calculated) [0 = 0 - 14 (default choice]; any_key = custom ')
 		if user_range == '0':
 			column_start, column_end = 0 , 14
 		else:
 			column_start = input('\n  type in your start column: ')
 			column_end = input('\n  type in your end column: ')
 		return int(column_start), int(column_end)
+	elif x==13:
+		user_ext =  input('\n What type of file do you want to create?  [0 = .txt ]: ')
+		if user_ext == '0':
+			return '.txt'
+		else:
+			func_choice(13)	
+	elif x==14:
+		user_ext =  input('\n What type of output do you want [0 = .txt (generate software blocks) ; 1 = .txt (write a string)]: ')
+		if user_ext == '0':
+			return 'generate'
+		elif user_ext == '1':
+			return 'simple'
+		else:
+			func_choice(14)	
 	else:
 		return 'Error'
-		
+
+def func_exit(x,y): 		
+	if (x == 1) and (y == '1'):
+		input('Program is exiting from func_select with func_exit(1,"1"),  press any key to exit program  ')
+		sys.exit()
+	elif (x == 1) and (y == '0'):
+		input('Program is exiting from func_select with func_exit(1,"0"), press any key to exit program  ')
+		sys.exit()
+	elif (x == 1) and (y == 'null'):
+		input('Program is exiting from func_select with func_exit(1,"null"), press any key to exit program  ')
+		sys.exit()
+	elif (x == 2) and (y == '0'):
+		input('Program is exiting from func_extension with func_exit(2,"0"), press any key to exit program  ')
+		sys.exit()
+	elif (x == 3) and (y == '0'):
+		input('Program is exiting from func_draw_xls_table with func_exit(3,"0"), press any key to exit program  ')
+		sys.exit()	
+	elif (x == 4) and (y == '0'):
+		input('Program is exiting from func_read with func_exit(4,"0"), press any key to exit program  ')
+		sys.exit()	
+	elif (x == 4) and (y == '1'):
+		input('Program is exiting from func_read with func_exit(4,"1"), press any key to exit program  ')
+		sys.exit()
+	elif (x == 5) and (y == '0'):
+		input('Program is exiting from func_output_to_file with func_exit(5,"0"), press any key to exit program  ')
+		sys.exit()
+	elif (x == 5) and (y == '1'):
+		input('Program is exiting from func_output_to_file with func_exit(5,"1"), press any key to exit program  ')
+		sys.exit()
+	else:
+		input('Program is exiting through func_exit with no valid arguments, press any key to exit program  ')
+		sys.exit()
 		
 
 	
@@ -73,18 +118,15 @@ def func_select():			# This function gets the current directory and asks the use
 		if f_confirm == '1':
 			return f_choose
 		else:
-			sleep(5)
-			sys.exit()																			#exit program
+			func_exit(1,'1')
 	elif f_select == '0':
-		sys.exit()																				#exit program	
+		func_exit(1,'0')																				
 	elif f_select in entries:
 			f_choose = cwd + "\\" + f_select
 			print ('\n You have selected', f_choose, '\n')
 			return f_choose
 	else:
-		func_choice(4)
-		sleep(5)
-		sys.exit()																				#exit program
+		func_exit(1,'null')																				
 			
 			
 			
@@ -102,8 +144,8 @@ def func_extension_read(file_target):
 		print('file extension was: ', file_extension)
 		print('para extension was: ', para_extension)
 		func_choice(5)
-		sleep(5)
-		sys.exit()
+		func_exit(2,'0')
+
 		
 		
 def func_draw_xls_table(actual_row_start, actual_row_end,  actual_col_start, actual_col_end,workbook, sheet): 			#workbook is still open from previous function call!
@@ -150,8 +192,8 @@ def func_draw_xls_table(actual_row_start, actual_row_end,  actual_col_start, act
 				return multi_list
 			else:
 				print('Error in drawing excel table -- not all columns have the same amount of data')
-				sleep(5)
-				sys.exit()
+				func_exit(3,'0')
+				
 				
 	except IndexError:
 		print('EXCEPTION (IndexError)- column :', c, 'row: ',r,'  The program has likely detected a column which has no values, try adjusting your column range')
@@ -226,14 +268,13 @@ def func_read(file_current, para_extension_read ):
 				
 			else:
 				print('err_val: ',err_val,' - program will exit soon')
-				sleep(10)
-				sys.exit()
+				func_exit(4,'0')
 	
 		if err_val == 0:
 			print('There is something wrong with your excel configuration: Check for "~" character to end your selection ; Check for correct row/column search ranges')
 			print('err_val: ', err_val)
-			sleep(10)
-			sys.exit()
+			func_exit(4,'1')
+			
 			
 																
 			
@@ -266,19 +307,54 @@ def func_check_filename(para_extension = '1' ):
 			func_choice(8)
 			name_valid =False
 	return ask_input									# return file name inputted by the user
-				
+
+def func_create_1650(list_info):
+
+
+
+	pass
+	
+	
+	
+		
 	
 		
 	
 
 
-def func_output_to_file(input_data, para_extension_write):
+def func_output_to_file(input_data):
+	para_extension_write = func_choice(13)
+	para_job_type = func_choice(14)
 	
-	new_name =func_check_filename(para_extension_write)             		#new_file is given a filename by func_check_filename() where arg ==1 means it will be a .txt file
-	print('\n now creating file' , new_name)
-	new_file = open(new_name,'w')
-	new_file.write(str(input_data))                     #argument of new_file.write(arg) requirement is that arg must be a string and not a list 
-	new_file.close()
+	if (para_extension_write == '.txt') and (para_job_type == 'simple'):
+		new_name =func_check_filename('1')             		#new_file is given a filename by func_check_filename() where arg ==1 means it will be a .txt file
+		print('\n now creating ".txt" file with para_job_type = simple - > ' , new_name, '\n')
+		new_file = open(new_name,'w')
+		new_file.write(str(input_data))                     #argument of new_file.write(arg) requirement is that arg must be a string and not a list 
+		new_file.close()
+	elif (para_extension_write == '.txt') and (para_job_type == 'generate'):
+		new_name =func_check_filename('1')             		
+		print('\n now creating ".txt" file with para_job_type = generate - > ' , new_name, '\n')
+		new_file = open(new_name,'w')
+		new_file.write('\n')
+		if (input_data[0][0].lower() == 'module number') and (input_data[1][0].lower() == 'module type') and (input_data[2][0].lower() == 'network name') and 	(input_data[3][0].lower() == 'handshake rear') and	(input_data[4][0].lower() == 'handshake front'):	
+			for i in range(1,len(input_data[0])):
+					if input_data[1][i] == 1650:
+						list_info = []
+						for k in range(0, len(input_data)):
+							list_info.append(input_data[k][i])											
+						else:
+							func_create_1650(list_info)
+				
+		else:
+			new_file.close()
+			func_exit(5,'0')
+			
+		
+		
+	else:
+		new_file.close()
+		func_exit(5,'1')	
 	
 
 	return True
@@ -301,7 +377,7 @@ def main():
 	
 	print('Starting Step 4 - call func_output_to_file\n')
 	sleep(2)
-	func_output_to_file(list_output, para_extension_write)
+	func_output_to_file(list_output)
 
 	return True
 
