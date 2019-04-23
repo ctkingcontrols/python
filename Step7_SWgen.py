@@ -4,6 +4,10 @@ from time import sleep
 import sys
 import xlrd 
 
+#christopher king 
+#4/23/2019
+#v0.1
+
 def func_choice(x): # this function handles most print() and input() functions for the sake of modularity
 	if x == 1:
 		return input('Enter the file you wish to select (without quotations) search and include the extension. [ 0 = quit ; 1 = type a full filepath ]  \n \n')
