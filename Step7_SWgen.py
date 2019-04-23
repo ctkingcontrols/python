@@ -70,13 +70,13 @@ def func_choice(x): # this function handles most print() and input() functions f
 
 def func_exit(x,y): 		
 	if (x == 1) and (y == '1'):
-		input('Program is exiting from func_select with func_exit(1,"1"),  press any key to exit program  ')
+		input('Program is exiting from func_select_file with func_exit(1,"1"),  press any key to exit program  ')
 		sys.exit()
 	elif (x == 1) and (y == '0'):
-		input('Program is exiting from func_select with func_exit(1,"0"), press any key to exit program  ')
+		input('Program is exiting from func_select_file with func_exit(1,"0"), press any key to exit program  ')
 		sys.exit()
 	elif (x == 1) and (y == 'null'):
-		input('Program is exiting from func_select with func_exit(1,"null"), press any key to exit program  ')
+		input('Program is exiting from func_select_file with func_exit(1,"null"), press any key to exit program  ')
 		sys.exit()
 	elif (x == 2) and (y == '0'):
 		input('Program is exiting from func_extension with func_exit(2,"0"), press any key to exit program  ')
@@ -104,7 +104,7 @@ def func_exit(x,y):
 	
 
 
-def func_select():			# This function gets the current directory and asks the user to select a file from the directory, or type full file path of their target file
+def func_select_file():			# This function gets the current directory and asks the user to select a file from the directory, or type full file path of their target file
 
 	cwd = os.getcwd()																			# os function to get current working directory
 	print ('\nCurrent directory: \n \n', cwd, '\n') 
@@ -130,15 +130,15 @@ def func_select():			# This function gets the current directory and asks the use
 			
 			
 			
-def func_extension_read(file_target):
+def func_extension_read(file_address):
 	
 	para_extension = func_choice(9)
-	file_name, file_extension = os.path.splitext(file_target)
+	file_name, file_extension = os.path.splitext(file_address)
 	
 	if (file_extension == '.txt') and (para_extension == '1'):
-		return file_target , para_extension
+		return file_address , para_extension
 	elif (file_extension == '.xlsx') and (para_extension == '0'):
-		return file_target, para_extension
+		return file_address, para_extension
 	else:
 		print('file name was: ', file_name)
 		print('file extension was: ', file_extension)
@@ -308,11 +308,31 @@ def func_check_filename(para_extension = '1' ):
 			name_valid =False
 	return ask_input									# return file name inputted by the user
 
-def func_create_1650(list_info):
+def func_create_1650(single_dim_list, new_file):
+		
+		DB_Num = str(single_dim_list[0])
+		FB_Num = str(single_dim_list[1])
+		NW_name = str(single_dim_list[2])
+		Hs_Rear = str(single_dim_list[3])
+		Hs_Front = str(single_dim_list[4])
+
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		new_file.write('A db' + DB_Num +'.dbw.0 ' + ' = '+ Hs_Rear + ' //   hs_rear' )    #create handshake Rear
+		new_file.write('\n')
+		new_file.write('A db' + DB_Num +'.dbw.2 ' + ' = '+ Hs_Front + ' //  hs_front' )    #create handshake Front
+		new_file.write('\n \n')
+		new_file.write('CALL FB '+ FB_Num+ ',  db' + DB_Num  )
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		
+		
+		print("\n func_create_1650 created FB", FB_Num," with DB", DB_Num, '\n' )
 
 
-
-	pass
+		return
 	
 	
 	
@@ -322,7 +342,7 @@ def func_create_1650(list_info):
 	
 
 
-def func_output_to_file(input_data):
+def func_output_to_file(multi_dim_list):
 	para_extension_write = func_choice(13)
 	para_job_type = func_choice(14)
 	
@@ -330,21 +350,20 @@ def func_output_to_file(input_data):
 		new_name =func_check_filename('1')             		#new_file is given a filename by func_check_filename() where arg ==1 means it will be a .txt file
 		print('\n now creating ".txt" file with para_job_type = simple - > ' , new_name, '\n')
 		new_file = open(new_name,'w')
-		new_file.write(str(input_data))                     #argument of new_file.write(arg) requirement is that arg must be a string and not a list 
+		new_file.write(str(multi_dim_list))                     #argument of new_file.write(arg) requirement is that arg must be a string and not a list 
 		new_file.close()
 	elif (para_extension_write == '.txt') and (para_job_type == 'generate'):
 		new_name =func_check_filename('1')             		
 		print('\n now creating ".txt" file with para_job_type = generate - > ' , new_name, '\n')
 		new_file = open(new_name,'w')
-		new_file.write('\n')
-		if (input_data[0][0].lower() == 'module number') and (input_data[1][0].lower() == 'module type') and (input_data[2][0].lower() == 'network name') and 	(input_data[3][0].lower() == 'handshake rear') and	(input_data[4][0].lower() == 'handshake front'):	
-			for i in range(1,len(input_data[0])):
-					if input_data[1][i] == 1650:
-						list_info = []
-						for k in range(0, len(input_data)):
-							list_info.append(input_data[k][i])											
+		if (multi_dim_list[0][0].lower() == 'module number') and (multi_dim_list[1][0].lower() == 'module type') and (multi_dim_list[2][0].lower() == 'network name') and 	(multi_dim_list[3][0].lower() == 'handshake rear') and	(multi_dim_list[4][0].lower() == 'handshake front'):	
+			for i in range(1,len(multi_dim_list[0])):
+					if multi_dim_list[1][i] == 1650:
+						single_dim_list = []
+						for k in range(0, len(multi_dim_list)):
+							single_dim_list.append(multi_dim_list[k][i])											
 						else:
-							func_create_1650(list_info)
+							func_create_1650(single_dim_list, new_file)
 				
 		else:
 			new_file.close()
@@ -359,25 +378,25 @@ def func_output_to_file(input_data):
 
 	return True
 	
-def main():
+def func_main():
 	
 
 
 	print('Initializing program - you will now select your target file')
 	sleep(.2)
-	f_target = func_select()
+	main_file_address = func_select_file()
 
 	print ('Starting Step 2 - call func_extension_read \n')
 	sleep(.2)
-	f_current, para_extension_read = func_extension_read(f_target)    		#check to see if extension is valid, if so then return the f_target again.
+	main_file_name, main_file_extension_type = func_extension_read(main_file_address)    		#check to see if extension is valid, if so then return the main_file_address again.
 
 	print ('Starting Step 3 - call func_read\n')
 	sleep(.2)	
-	list_output = func_read(f_current,para_extension_read)
+	main_list_output = func_read(main_file_name,main_file_extension_type)
 	
 	print('Starting Step 4 - call func_output_to_file\n')
 	sleep(2)
-	func_output_to_file(list_output)
+	func_output_to_file(main_list_output)
 
 	return True
 
@@ -386,6 +405,6 @@ def main():
 
 ### call of the main function
 
-main()
+func_main()
 
 
