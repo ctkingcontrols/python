@@ -319,9 +319,11 @@ def func_create_1650(single_dim_list, new_file):
 		new_file.write('\n \n')
 		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
 		new_file.write('\n \n')
-		new_file.write('A db' + DB_Num +'.dbw.0 ' + ' = '+ Hs_Rear + ' //   hs_rear' )    #create handshake Rear
+		new_file.write('L  '+ Hs_Rear)
+		new_file.write('\nT  db' + DB_Num +'.dbw.0 ')											#create handshake Rear   
 		new_file.write('\n')
-		new_file.write('A db' + DB_Num +'.dbw.2 ' + ' = '+ Hs_Front + ' //  hs_front' )    #create handshake Front
+		new_file.write('L  '+ Hs_Front)
+		new_file.write('\nT  db' + DB_Num +'.dbw.2 ')											#create handshake Front  
 		new_file.write('\n \n')
 		new_file.write('CALL FB '+ FB_Num+ ',  db' + DB_Num  )
 		new_file.write('\n \n')
@@ -330,6 +332,124 @@ def func_create_1650(single_dim_list, new_file):
 		
 		
 		print("\n func_create_1650 created FB", FB_Num," with DB", DB_Num, '\n' )
+
+
+		return
+		
+		
+		
+def func_create_1600(single_dim_list, new_file):
+		
+		DB_Num = str(single_dim_list[0])
+		FB_Num = str(single_dim_list[1])
+		NW_name = str(single_dim_list[2])
+		Hs_Rear = str(single_dim_list[3])
+		Hs_Front = str(single_dim_list[4])
+
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		new_file.write('L  '+ Hs_Rear)
+		new_file.write('\nT  db' + DB_Num +'.dbw.0 ')											#create handshake Rear   
+		new_file.write('\n')
+		new_file.write('L  '+ Hs_Front)
+		new_file.write('\nT  db' + DB_Num +'.dbw.2 ')											#create handshake Front  
+		new_file.write('\n \n')
+		new_file.write('CALL FB '+ FB_Num+ ',  db' + DB_Num  )
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		
+		
+		print("\n func_create_1600 created FB", FB_Num," with DB", DB_Num, '\n' )
+
+
+		return
+		
+		
+				
+def func_create_1207(single_dim_list, new_file):
+		
+		DB_Num = str(single_dim_list[0])
+		FB_Num = str(single_dim_list[1])
+		NW_name = str(single_dim_list[2])
+		Hs_Rear = str(single_dim_list[3])
+		Hs_Front = str(single_dim_list[4])
+
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		new_file.write('L  '+ Hs_Rear)
+		new_file.write('\nT  db' + DB_Num +'.dbw.0 ')											#create handshake Rear   
+		new_file.write('\n')
+		new_file.write('L  '+ Hs_Front)
+		new_file.write('\nT  db' + DB_Num +'.dbw.2 ')											#create handshake Front  
+		new_file.write('\n \n')
+		new_file.write('CALL FB '+ FB_Num+ ',  db' + DB_Num  )
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		
+		
+		print("\n func_create_1207 created FB", FB_Num," with DB", DB_Num, '\n' )
+
+
+		return
+		
+		
+def func_create_1208(single_dim_list, new_file):
+		
+		DB_Num = str(single_dim_list[0])
+		FB_Num = str(single_dim_list[1])
+		NW_name = str(single_dim_list[2])
+		Hs_Rear = str(single_dim_list[3])
+		Hs_Front = str(single_dim_list[4])
+
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		new_file.write('L  '+ Hs_Rear)
+		new_file.write('\nT  db' + DB_Num +'.dbw.0 ')											#create handshake Rear   
+		new_file.write('\n')
+		new_file.write('L  '+ Hs_Front)
+		new_file.write('\nT  db' + DB_Num +'.dbw.2 ')											#create handshake Front  
+		new_file.write('\n \n')
+		new_file.write('CALL FB '+ FB_Num+ ',  db' + DB_Num  )
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		
+		
+		print("\n func_create_1208 created FB", FB_Num," with DB", DB_Num, '\n' )
+
+
+		return
+		
+		
+def func_create_1400(single_dim_list, new_file):
+		
+		DB_Num = str(single_dim_list[0])
+		FB_Num = str(single_dim_list[1])
+		NW_name = str(single_dim_list[2])
+		Hs_Rear = str(single_dim_list[3])
+		Hs_Front = str(single_dim_list[4])
+
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		new_file.write('L  '+ Hs_Rear)
+		new_file.write('\nT  db' + DB_Num +'.dbw.0 ')											#create handshake Rear   
+		new_file.write('\n')
+		new_file.write('L  '+ Hs_Front)
+		new_file.write('\nT  db' + DB_Num +'.dbw.2 ')											#create handshake Front  
+		new_file.write('\n \n')
+		new_file.write('CALL FB '+ FB_Num+ ',  db' + DB_Num  )
+		new_file.write('\n \n')
+		new_file.write('  ----- '+ NW_name + ' ----- '   ) 
+		new_file.write('\n \n')
+		
+		
+		print("\n func_create_1400 created FB", FB_Num," with DB", DB_Num, '\n' )
 
 
 		return
@@ -364,6 +484,30 @@ def func_output_to_file(multi_dim_list):
 							single_dim_list.append(multi_dim_list[k][i])											
 						else:
 							func_create_1650(single_dim_list, new_file)
+					if multi_dim_list[1][i] == 1600:
+						single_dim_list = []
+						for k in range(0, len(multi_dim_list)):
+							single_dim_list.append(multi_dim_list[k][i])											
+						else:
+							func_create_1600(single_dim_list, new_file)
+					if multi_dim_list[1][i] == 1207:
+						single_dim_list = []
+						for k in range(0, len(multi_dim_list)):
+							single_dim_list.append(multi_dim_list[k][i])											
+						else:
+							func_create_1207(single_dim_list, new_file)
+					if multi_dim_list[1][i] == 1208:
+						single_dim_list = []
+						for k in range(0, len(multi_dim_list)):
+							single_dim_list.append(multi_dim_list[k][i])											
+						else:
+							func_create_1208(single_dim_list, new_file)
+					if multi_dim_list[1][i] == 1400:
+						single_dim_list = []
+						for k in range(0, len(multi_dim_list)):
+							single_dim_list.append(multi_dim_list[k][i])											
+						else:
+							func_create_1400(single_dim_list, new_file)
 				
 		else:
 			new_file.close()
